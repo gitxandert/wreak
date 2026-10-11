@@ -1,0 +1,35 @@
+# Example Wreak spec: adding a rate limiter to an existing web service.
+# This shows blocks interleaved inside a single feature. The form switches
+# whenever the author's thought changes from exact, to sketched, to delegated.
+
+text:
+	Add per-client rate limiting to the API. Clients are identified by API key.
+	Use a token bucket, kept in memory. A single process is fine for now.
+
+# I already know this number.
+code: --language python --file api/ratelimit.py
+	BUCKET_CAPACITY = 20
+
+# I can picture the data shape exactly.
+code: --language python --file api/ratelimit.py
+	@dataclass
+	class Bucket:
+	    tokens: float
+	    last_refill: float
+
+# I know the refill logic, but not the exact lines.
+pseudo-code: --language python --file api/ratelimit.py
+	function take(key) -> bool:
+		bucket <- buckets[key], or a full bucket stamped now
+		elapsed <- now - bucket.last_refill
+		bucket.tokens <- min(BUCKET_CAPACITY, bucket.tokens + elapsed * REFILL_PER_SEC)
+		bucket.last_refill <- now
+		if bucket.tokens < 1: return false
+		bucket.tokens -= 1
+		return true
+
+# The wiring: I don't mind how it's done.
+text:
+	Pick a sensible REFILL_PER_SEC. Use a monotonic clock for `now`.
+	Wire `take` into the existing middleware however fits the codebase.
+	Rejected requests get a 429 with a Retry-After header.

@@ -1,8 +1,13 @@
 # Wreak
 
-A pseudo-language for describing software to coding agents. A `.wreak` file
-mixes three block families. Each one tells the agent how literally to take
-what you wrote:
+Write your intent the way it comes to mind.
+
+When you work with a coding agent, you often already see the code in your
+head. Then you end up describing it in English so the agent can turn it back
+into the code you were picturing. That round trip is slow, and details get
+lost. Wreak lets you skip it. Write the code you can see as code. Write the
+logic you know the shape of as pseudo-code. Save prose for the parts you
+actually want the agent to decide.
 
 ```
 text:
@@ -17,18 +22,28 @@ code: --language python --file todo/storage.py
 	PATH = pathlib.Path.home() / ".todo.json"
 ```
 
-| Block | Meaning to the agent | Editor color |
-|---|---|---|
-| `code:` | Exact lines that must exist | teal, or the language's own highlighting with `--language` |
-| `pseudo-code:` | A specific design for code, translated faithfully | orange |
-| `text:` | General intent and requirements; the agent decides the details | violet |
+| Block | Use it when… | What the agent does | Editor color |
+|---|---|---|---|
+| `code:` | you can already see the exact lines | keeps them as written | teal, or the language's own highlighting with `--language` |
+| `pseudo-code:` | you know the logic, but not every token | translates it faithfully | orange |
+| `text:` | you know what you want, not how | makes the design decisions | violet |
+
+Mix blocks at whatever granularity your thinking happens. A block can be one
+line, a function signature, a loop body or a whole file. It's normal to switch
+forms in the middle of a thought: an exact signature, then a sketched body, then
+"handle errors however makes sense." Each block records how settled that piece
+of the design is in your head, so the agent knows what to keep and what to
+decide.
 
 Type a header and press Enter. The editor indents the body with a tab. When
 you type the next header on an indented line and press Enter, it snaps back to
 column 0.
 
 See [`docs/spec.md`](docs/spec.md) for the full grammar and semantics, and
-[`examples/todo-cli.wreak`](examples/todo-cli.wreak) for a complete example.
+[`examples/`](examples/) for complete files:
+[`todo-cli.wreak`](examples/todo-cli.wreak) (a small app) and
+[`rate-limiter.wreak`](examples/rate-limiter.wreak) (blocks interleaved
+inside one feature).
 
 ## Repository layout
 

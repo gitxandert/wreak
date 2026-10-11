@@ -1,6 +1,6 @@
 ---
 name: wreak
-description: Interpret Wreak (.wreak) files, which mix `code:`, `pseudo-code:` and `text:` blocks, and turn them into an implementation plan or a working application. Use when the user references a .wreak file, pastes content with `code:` / `pseudo-code:` / `text:` block headers, or asks to plan or build something from a Wreak spec.
+description: Interpret Wreak (.wreak) files, where authors write intent in the form it came to mind (literal `code:`, `pseudo-code:` for logic they know the shape of, and `text:` for what they delegate), and turn them into an implementation plan or a working application. Use when the user references a .wreak file, pastes content with `code:` / `pseudo-code:` / `text:` block headers, or asks to plan or build something from a Wreak spec.
 ---
 
 # Wreak
@@ -19,6 +19,21 @@ code: --language python --file app.py   <- exact lines; keep them as written
 ```
 
 The full grammar is in `references/spec.md`.
+
+## What the author is doing
+
+Wreak exists so the author doesn't have to turn code they can already picture
+into prose for you. Each block is a thought written in the form it took in their
+head:
+
+- `code:` means "I can already see these lines." The author has decided them.
+- `pseudo-code:` means "I know the logic, not every token." The author has
+  decided the design, so translate it and don't redesign it.
+- `text:` means "I know what I want, not how." This is the only place the
+  author is handing the decisions to you.
+
+Respect that split. Don't redesign what the author settled, and don't ask the
+author about details they clearly left for you to decide.
 
 ## Step 1: Parse
 
@@ -58,6 +73,13 @@ Other rules:
   them by their plain meaning.
 - **`#` comments** at column 0 are notes for humans. Ignore them as instructions.
 - **Implicit text** (stray top-level lines) counts as `text:`.
+- **Fragments are normal.** A `code:` or `pseudo-code:` block may be one line,
+  a signature, a constant or the middle of a function. Fit each one in where it
+  belongs, and assume the rest is in surrounding blocks. Don't treat a block as
+  a whole file.
+- **Text often points at neighbours** ("same as above but for users", "make
+  this async", "handle errors however fits"). Resolve these references against
+  the nearby blocks.
 
 ## Step 3: Decide the deliverable
 
@@ -88,9 +110,15 @@ Other rules:
 
 ## Writing Wreak for the user
 
-If the user asks you to draft or edit a .wreak file:
+If the user asks you to draft or edit a .wreak file, keep each thought in the
+form the user gave it:
 
+- If the user writes or dictates actual code, put it in `code:`. If they sketch
+  logic, put it in `pseudo-code:`. Don't turn either one into a `text:`
+  description, because that undoes the whole point of the format.
+- Use `text:` only for what the user is leaving to the agent: goals,
+  constraints and "however makes sense" parts.
+- Keep blocks as small as the thought. Interleaving short blocks is better than
+  forcing everything into one block.
 - Headers go at column 0. Body lines are indented with exactly one tab.
-- Use `text:` for goals, `pseudo-code:` for the logic they care about, and
-  `code:` only for lines they want kept literally.
 - Run the parser afterwards to confirm the file has no warnings.

@@ -60,6 +60,11 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(r["warnings"], [])
         self.assertEqual(len(r["blocks"]), 4)
 
+    def test_rate_limiter_example_parses_cleanly(self):
+        r = parse((ROOT / "examples" / "rate-limiter.wreak").read_text())
+        self.assertEqual(r["warnings"], [])
+        self.assertEqual(len(r["blocks"]), 5)
+
 
 if __name__ == "__main__":
     unittest.main()

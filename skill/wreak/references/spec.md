@@ -1,15 +1,23 @@
 # Wreak Language Specification (v0.1)
 
-Wreak is a pseudo-language for describing software to a coding agent. A
-`.wreak` file is a sequence of **blocks**. Each block belongs to one of three
-families, and the family tells the reader (human or agent) how literally to
-take its contents:
+Wreak is a pseudo-language for telling a coding agent what you want, in the
+form the thought already has. You don't translate code you can already picture
+into prose. You write it as code, or as pseudo-code if you only know its shape,
+and you keep prose for what you want the agent to decide.
 
-| Family        | Header          | Meaning                                         | Binding strength |
-|---------------|-----------------|-------------------------------------------------|------------------|
-| code          | `code:`         | Exact lines of code that should exist           | Highest          |
-| pseudo-code   | `pseudo-code:`  | Specific ideas for code: logic, structure, flow | Medium           |
-| text          | `text:`         | General intent, requirements, descriptions      | Lowest (latitude)|
+A `.wreak` file is a sequence of **blocks**. Each block belongs to one of three
+families. The family records how settled that piece of the design is for the
+author, so it also tells the reader (human or agent) how literally to take its
+contents:
+
+| Family        | Header          | Author's thought                     | Meaning                                         | Binding strength |
+|---------------|-----------------|--------------------------------------|-------------------------------------------------|------------------|
+| code          | `code:`         | "I can see the exact lines"          | Exact lines of code that should exist           | Highest          |
+| pseudo-code   | `pseudo-code:`  | "I know the logic, not every token"  | Specific ideas for code: logic, structure, flow | Medium           |
+| text          | `text:`         | "I know what I want, not how"        | General intent, requirements, descriptions      | Lowest (latitude)|
+
+Blocks can be any size, from one line or a signature up to a whole file. They
+can also interleave inside a single feature or function.
 
 ## 1. File structure
 
@@ -57,6 +65,12 @@ They get generic code highlighting, and agents still read them as the language
 of the block.
 
 ## 3. Semantics (how agents interpret blocks)
+
+A block's family shows how much the author has already decided. Agents keep
+what the author fixed and make decisions only where the author left room. Code
+and pseudo-code blocks may be fragments (one line, a signature, part of a
+function), so agents fit them into place rather than treating each one as a
+whole file.
 
 1. **code** blocks are *prescriptive*. The lines should appear in the output
    essentially as written. Agents may only make minimal, clearly necessary

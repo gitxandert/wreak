@@ -1,12 +1,15 @@
 # Example Wreak spec: a tiny todo CLI.
 # Lines starting with # at column 0 are notes for humans; agents ignore them.
+# Each block is written in whatever form the thought came in.
 
+# The big picture. I know what I want, not every detail.
 text:
 	Build a command-line todo manager called `todo`.
 	Items are stored as JSON in ~/.todo.json.
 	It MUST use only the Python standard library.
 	Commands: add, list, done, remove. Output should be compact and readable.
 
+# I know how dispatch should flow, but I don't care about the argparse details.
 pseudo-code: --language python --file todo/cli.py
 	function main(argv):
 		cmd, args <- parse argv with subcommands add/list/done/remove
@@ -18,6 +21,7 @@ pseudo-code: --language python --file todo/cli.py
 			remove(id): delete item, error if id not found
 		save(items) unless cmd is list
 
+# I can already see the storage code, so I'm writing it out.
 code: --language python --file todo/storage.py
 	import json
 	import pathlib
@@ -34,6 +38,7 @@ code: --language python --file todo/storage.py
 	def save(items):
 	    PATH.write_text(json.dumps(items, indent=2))
 
+# Packaging and tests: I don't care how they're done, just do them.
 text:
 	Add a pyproject.toml so `pip install .` exposes the `todo` command.
 	Include a few unit tests for the cli module.
