@@ -1,0 +1,17 @@
+{
+  "code block": {
+    "prefix": "code",
+    "body": ["code: --language ${1:python}${2: --file ${3:path}}", "\t$0"],
+    "description": "Exact lines of code"
+  },
+  "pseudo-code block": {
+    "prefix": "pseudo",
+    "body": ["pseudo-code:${1: --language ${2:python}}", "\t$0"],
+    "description": "Specific ideas for code"
+  },
+  "text block": {
+    "prefix": "text",
+    "body": ["text:", "\t$0"],
+    "description": "General intent / description for the agent"
+  }
+}

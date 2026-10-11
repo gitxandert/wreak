@@ -1,0 +1,251 @@
+{
+  "name": "wreak",
+  "displayName": "Wreak",
+  "description": "Syntax support for Wreak: code, pseudo-code and text blocks for coding agents.",
+  "version": "0.1.0",
+  "publisher": "gitxandert",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:wreak"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "wreak",
+        "aliases": [
+          "Wreak",
+          "wreak"
+        ],
+        "extensions": [
+          ".wreak"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wreak",
+        "scopeName": "source.wreak",
+        "path": "./syntaxes/wreak.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.python": "python",
+          "meta.embedded.block.javascript": "javascript",
+          "meta.embedded.block.jsx": "javascriptreact",
+          "meta.embedded.block.typescript": "typescript",
+          "meta.embedded.block.tsx": "typescriptreact",
+          "meta.embedded.block.rust": "rust",
+          "meta.embedded.block.go": "go",
+          "meta.embedded.block.c": "c",
+          "meta.embedded.block.cpp": "cpp",
+          "meta.embedded.block.csharp": "csharp",
+          "meta.embedded.block.java": "java",
+          "meta.embedded.block.kotlin": "kotlin",
+          "meta.embedded.block.scala": "scala",
+          "meta.embedded.block.swift": "swift",
+          "meta.embedded.block.objc": "objective-c",
+          "meta.embedded.block.ruby": "ruby",
+          "meta.embedded.block.php": "php",
+          "meta.embedded.block.perl": "perl",
+          "meta.embedded.block.lua": "lua",
+          "meta.embedded.block.r": "r",
+          "meta.embedded.block.julia": "julia",
+          "meta.embedded.block.dart": "dart",
+          "meta.embedded.block.elixir": "elixir",
+          "meta.embedded.block.erlang": "erlang",
+          "meta.embedded.block.haskell": "haskell",
+          "meta.embedded.block.ocaml": "ocaml",
+          "meta.embedded.block.fsharp": "fsharp",
+          "meta.embedded.block.clojure": "clojure",
+          "meta.embedded.block.zig": "zig",
+          "meta.embedded.block.nim": "nim",
+          "meta.embedded.block.shell": "shellscript",
+          "meta.embedded.block.powershell": "powershell",
+          "meta.embedded.block.sql": "sql",
+          "meta.embedded.block.html": "html",
+          "meta.embedded.block.css": "css",
+          "meta.embedded.block.scss": "scss",
+          "meta.embedded.block.less": "less",
+          "meta.embedded.block.vue": "vue",
+          "meta.embedded.block.svelte": "svelte",
+          "meta.embedded.block.json": "json",
+          "meta.embedded.block.yaml": "yaml",
+          "meta.embedded.block.toml": "toml",
+          "meta.embedded.block.xml": "xml",
+          "meta.embedded.block.markdown": "markdown",
+          "meta.embedded.block.graphql": "graphql",
+          "meta.embedded.block.proto": "proto3",
+          "meta.embedded.block.dockerfile": "dockerfile",
+          "meta.embedded.block.makefile": "makefile",
+          "meta.embedded.block.cmake": "cmake",
+          "meta.embedded.block.nix": "nix",
+          "meta.embedded.block.terraform": "terraform",
+          "meta.embedded.block.vim": "viml",
+          "meta.embedded.block.diff": "diff"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "wreak",
+        "path": "./snippets/wreak.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[wreak]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false,
+        "editor.tabSize": 4,
+        "editor.autoIndent": "full",
+        "editor.wordWrap": "on",
+        "editor.formatOnType": true
+      },
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": "keyword.control.block.code.wreak",
+            "settings": {
+              "foreground": "#2AA198",
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": "markup.raw.block.code.wreak",
+            "settings": {
+              "foreground": "#2AA198"
+            }
+          },
+          {
+            "scope": [
+              "string.quoted.code.wreak",
+              "constant.numeric.code.wreak"
+            ],
+            "settings": {
+              "foreground": "#6CC4B8"
+            }
+          },
+          {
+            "scope": [
+              "comment.line.code.wreak",
+              "comment.block.code.wreak"
+            ],
+            "settings": {
+              "foreground": "#5F8F8A",
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "scope": "keyword.control.block.pseudo-code.wreak",
+            "settings": {
+              "foreground": "#CB7B16",
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": "meta.body.pseudo-code.wreak",
+            "settings": {
+              "foreground": "#CB7B16"
+            }
+          },
+          {
+            "scope": [
+              "keyword.control.pseudo.wreak",
+              "keyword.operator.pseudo.wreak"
+            ],
+            "settings": {
+              "foreground": "#E0952B",
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "entity.name.function.pseudo.wreak",
+              "entity.name.type.pseudo.wreak"
+            ],
+            "settings": {
+              "foreground": "#D9A441"
+            }
+          },
+          {
+            "scope": [
+              "string.quoted.pseudo.wreak",
+              "constant.numeric.pseudo.wreak",
+              "constant.language.pseudo.wreak"
+            ],
+            "settings": {
+              "foreground": "#C9A15A"
+            }
+          },
+          {
+            "scope": "comment.line.pseudo.wreak",
+            "settings": {
+              "foreground": "#9A7A55",
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "scope": "keyword.control.block.text.wreak",
+            "settings": {
+              "foreground": "#8E6CD8",
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "meta.body.text.wreak",
+              "meta.stray.wreak"
+            ],
+            "settings": {
+              "foreground": "#8E6CD8"
+            }
+          },
+          {
+            "scope": "markup.inline.raw.text.wreak",
+            "settings": {
+              "foreground": "#B49CF0"
+            }
+          },
+          {
+            "scope": [
+              "markup.bold.text.wreak",
+              "keyword.other.requirement.text.wreak"
+            ],
+            "settings": {
+              "foreground": "#A585F0",
+              "fontStyle": "bold"
+            }
+          },
+          {
+            "scope": [
+              "variable.parameter.flag.wreak",
+              "keyword.operator.assignment.wreak"
+            ],
+            "settings": {
+              "foreground": "#808080"
+            }
+          },
+          {
+            "scope": "string.unquoted.flag-value.wreak",
+            "settings": {
+              "foreground": "#A0A0A0",
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "scope": "comment.line.number-sign.wreak",
+            "settings": {
+              "foreground": "#6A737D",
+              "fontStyle": "italic"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

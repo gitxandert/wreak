@@ -1,0 +1,39 @@
+# Example Wreak spec: a tiny todo CLI.
+# Lines starting with # at column 0 are notes for humans; agents ignore them.
+
+text:
+	Build a command-line todo manager called `todo`.
+	Items are stored as JSON in ~/.todo.json.
+	It MUST use only the Python standard library.
+	Commands: add, list, done, remove. Output should be compact and readable.
+
+pseudo-code: --language python --file todo/cli.py
+	function main(argv):
+		cmd, args <- parse argv with subcommands add/list/done/remove
+		items <- load()
+		match cmd:
+			add(title): append {id: next_id(items), title, done: false}
+			list: for each item print "[x]" if done else "[ ]", id, title
+			done(id): set item.done = true, error if id not found
+			remove(id): delete item, error if id not found
+		save(items) unless cmd is list
+
+code: --language python --file todo/storage.py
+	import json
+	import pathlib
+
+	PATH = pathlib.Path.home() / ".todo.json"
+
+
+	def load():
+	    if not PATH.exists():
+	        return []
+	    return json.loads(PATH.read_text())
+
+
+	def save(items):
+	    PATH.write_text(json.dumps(items, indent=2))
+
+text:
+	Add a pyproject.toml so `pip install .` exposes the `todo` command.
+	Include a few unit tests for the cli module.
